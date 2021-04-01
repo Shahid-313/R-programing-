@@ -11,11 +11,16 @@ print("These lines has been written in Rstudio")
 vec1 <- c(1,2,3)
 vec2 <- c("a","b","c")
 vec3 <- c(T,F,T)
+<<<<<<< HEAD
 #max vectors
+=======
+
+>>>>>>> 497de00f3d2ff8fcab019274caf87e1719814a36
 mix1 <- c(1,T,2,F)
 mix2 <- c(1,"a",2,"b")
 mix3 <- c(1,"a",T)
 
+<<<<<<< HEAD
 #Explicit Coercion
 x <- 0:10
 class(x) #"integer"
@@ -60,3 +65,78 @@ x
 ##[[4]]
 #[1] 1+4i
 
+#Factors
+fac <- factor(c("yes","yes","no","yes","no"))
+fac
+#out1] yes yes no  yes no 
+#Levels: no yes
+
+table(fac)
+#out no yes 
+#    2   3 
+
+
+unclass(fac)
+#out[1] 2 2 1 2 1
+# attr (,"levels")
+#[1] "no"  "yes"
+
+#the order the levels can be set using the levels arguments to factor()
+fac1 <- factor(c("yes","yes","no","yes","no"),
+               levels = c("yes","no"))
+fac1
+#out1] yes yes no  yes no 
+#Levels: yes no
+
+#Missing Values is.na() and is.nan() , A NaN value is also NA but the converse is not true
+miss <- c(1,2,NA,10,3)
+miss  # 1  2 NA 10  3
+is.na(miss)
+#out  FALSE FALSE  TRUE FALSE FALSE
+is.nan(miss)
+#out FALSE FALSE FALSE FALSE FALSE
+
+miss1 <- c(1,2,NaN,NA,4)
+miss1  #  1   2 NaN  NA   4
+is.na(miss1)
+#out FALSE FALSE  TRUE  TRUE FALSE
+is.nan(miss1)
+#out FALSE FALSE  TRUE FALSE FALSE
+
+
+#DataFrame are use to store tabular data
+data <- data.frame(day = 1:4, rain = c(T,T,F,F))
+data
+#out   day  rain
+#   1   1  TRUE
+#   2   2  TRUE
+#   3   3 FALSE
+#   4   4 FALSE
+nrow(data)
+#out 4
+ncol(data)
+#out 2
+#Name R object can also have name
+z <- 1:3
+names(z) NULL
+names(z) <- c("col_A","col_B","col_C")
+z
+#out col_A col_B col_C 
+#     1     2     3 
+z1 <- list(a = 1, b= 2, c= 3)
+z1
+#out $a
+#[1] 1
+
+#$b
+#[1] 2
+
+#$c
+#[1] 3
+
+m1 <- matrix(1:4, nrow = 2, ncol = 2)
+dimnames(m1) <- list(c("a","b"), c("c","d"))
+m1
+#out   c d
+#    a 1 3
+#    b 2 4

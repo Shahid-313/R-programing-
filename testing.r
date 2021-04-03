@@ -11,16 +11,16 @@ print("These lines has been written in Rstudio")
 vec1 <- c(1,2,3)
 vec2 <- c("a","b","c")
 vec3 <- c(T,F,T)
-<<<<<<< HEAD
-#max vectors
-=======
 
->>>>>>> 497de00f3d2ff8fcab019274caf87e1719814a36
+
+
+#max vectors
+
 mix1 <- c(1,T,2,F)
 mix2 <- c(1,"a",2,"b")
 mix3 <- c(1,"a",T)
 
-<<<<<<< HEAD
+
 #Explicit Coercion
 x <- 0:10
 class(x) #"integer"
@@ -64,6 +64,7 @@ x
 
 ##[[4]]
 #[1] 1+4i
+
 
 #Factors
 fac <- factor(c("yes","yes","no","yes","no"))
@@ -140,3 +141,137 @@ m1
 #out   c d
 #    a 1 3
 #    b 2 4
+
+
+
+#Subsetting
+x <- c("a","b","c","c","d","a")
+x[1]
+#out "a"
+x[2]
+#out "b"
+x[1:4]
+#out "a" "b" "c" "c"
+x[x > "a"]
+#out "b" "c" "c" "d"
+u <- x > "a"
+u
+#out FALSE  TRUE  TRUE  TRUE  TRUE FALSE
+x[u]
+#out "b" "c" "c" "d"
+
+#Subsetting a matrix
+x <- matrix(1:6, 2, 3)
+x
+#out      [,1] [,2] [,3]
+#  [1,]    1    3    5
+# [2,]    2    4    6
+
+x[1, 2]
+
+#out 3
+
+x[2, 1]
+
+#out 2
+
+x[1,]
+
+#out 1 3 5
+
+x[, 2]
+
+#out 3 4
+
+x[1, 2, drop=FALSE]
+
+#out     [,1]
+# [1,]    3
+
+x[1, , drop=FALSE]
+
+#out    [,1] [,2] [,3]
+#[1,]    1    3    5
+
+#Subsetting List
+x <- list(weekdays = 1:4, rain_prob = 0.6)
+x
+#out $weekdays
+#[1] 1 2 3 4
+
+#$rain_prob
+#[1] 0.6
+
+x[1]
+
+#out $weekdays
+# [1] 1 2 3 4
+
+x[[1]]
+
+#out  1 2 3 4
+
+x$rain_prob
+
+#out  0.6
+
+x["rain_prob"]
+
+#out 0.6
+
+x <- list(weekdays = 1:4, rain_prob = 0.6, item = "umbrella")
+x
+
+#out $weekdays
+#[1] 1 2 3 4
+
+# $rain_prob
+# [1] 0.6
+
+# $item
+# [1] "umbrella"
+x[c(1, 3)]
+
+#out $weekdays
+# [1] 1 2 3 4
+
+# $item
+# [1] "umbrella"
+name <- "weekdays"
+x[[name]]
+
+#out [1] 1 2 3 4
+
+x$name
+#out NULL
+
+x$weekdays
+#out 1 2 3 4
+
+#Subsetting Nested Elements of a List
+x <- list(a = list(10,12,14), b = c(3.14, 2.81))
+x
+#out $a
+# $a[[1]]
+# [1] 10
+
+# $a[[2]]
+# [1] 12
+
+# $a[[3]]
+# [1] 14
+
+
+# $b
+# [1] 3.14 2.81
+
+x[[c(1,3)]]
+
+#out 14
+
+x[[1]][[3]]
+ #out 14
+
+x[[c(2,1)]]
+
+#out 3.14

@@ -275,3 +275,98 @@ x[[1]][[3]]
 x[[c(2,1)]]
 
 #out 3.14
+
+#Removing NA values
+xna <- c(1,2,NA,4,NA,5)
+xna  #1  2 NA  4 NA  5
+bad <- is.na(xna)
+xna[!bad] #output 1 2 4 5
+
+na1 <- c(1,2,NA,4,NA,5)
+na2 <- c("a","b",NA,"d",NA,"f")
+good <- complete.cases(na1,na2)
+good
+#out TRUE  TRUE FALSE  TRUE FALSE  TRUE
+na1[good]
+#out 1 2 4 5
+na2[good]
+#out "a" "b" "d" "f"
+
+airquality[1:6, ]
+#outpt
+#Ozone Solar.R Wind Temp Month Day
+#1    41     190  7.4   67     5   1
+#2    36     118  8.0   72     5   2
+#3    12     149 12.6   74     5   3
+#4    18     313 11.5   62     5   4
+#5    NA      NA 14.3   56     5   5
+#6    28      NA 14.9   66     5   6
+
+good <- complete.cases(airquality)
+airquality[good, ][1:6, ]
+#output
+#Ozone Solar.R Wind Temp Month Day
+#1    41     190  7.4   67     5   1
+#2    36     118  8.0   72     5   2
+#3    12     149 12.6   74     5   3
+#4    18     313 11.5   62     5   4
+#7    23     299  8.6   65     5   7
+#8    19      99 13.8   59     5   8
+
+#Control Structures : if else
+x <- 4
+y <- 0
+if(x > 3){
+     y <- 10
+} else{
+     y <- 0
+}
+
+#so is this one
+y <- if(x > 3){
+     10
+} else{
+     0
+}
+
+# For loop
+for(i in 1:10){
+     print(i)
+}
+#out 1,2,3,4.....10
+x <- c("a","b","c","d")
+for(i in 1:4){
+     print(x[i])
+}
+#out[1] "a"
+#  [1] "b"
+#  [1] "c"
+#  [1] "d"
+for(i in seq_along(x)){
+     print(x[i])
+}
+
+for(latter in x){
+     print(latter)
+}
+# For loop can be nested
+x <- matrix(1:6,2,3)
+for(i in seq_len(nrow(x))){
+     for(j in seq_len(ncol(x))){
+          print(x[i, j])
+     }
+}
+#out
+#[1] 1
+#[1] 3
+#[1] 5
+#[1] 2
+#[1] 4
+#[1] 6
+
+# While loop
+count <- 0
+while(count < 10){
+     print(count)
+     count <- count + 1
+}

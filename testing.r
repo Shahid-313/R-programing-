@@ -370,3 +370,79 @@ while(count < 10){
      print(count)
      count <- count + 1
 }
+
+#Function 
+#Argument Matching
+mydata <- rnorm(100)
+sd(mydata)
+sd(x = mydata)
+sd(x = mydata, na.rm = FALSE)
+sd(na.rm = FALSE, x = mydata)
+sd(na.rm = FALSE, mydata)
+
+
+#the following two call are equivalent
+mydata <- data.frame(x = rnorm(100),
+                     y=rnorm(100))
+lm(y ~ x, mydata, model = FALSE)
+
+lm(data=mydata, y~x, model = FALSE, 1:100)
+#sam output    Coefficients:
+#   (Intercept)            x  
+#       0.12770     -0.05288   
+
+#Defining a function 
+f <- function(a, b = 1, c = 2, d = NULL){
+        
+}
+#output is NULL
+
+#Lazy Evaluation
+f <- function(a, b){
+        a^2
+}
+
+f(2)
+#output [1] 4
+
+#Lazy Evaluation
+f <- function(a,b){
+        print(a)
+        print(b)
+}
+
+f(45)
+
+#out [1] 45
+# Error in print(b) : argument "b" is missing, with no default
+
+#Vectorized Operation
+x <- 1:4; y <- 6:9
+x + y
+#out  7  9 11 13
+x > 2
+#out FALSE FALSE  TRUE  TRUE
+x >= 2
+#out FALSE  TRUE  TRUE  TRUE
+y == 8
+#out FALSE FALSE  TRUE FALSE
+x * y
+#out 6 14 24 36
+x / y
+#out  0.1666667 0.2857143 0.3750000 0.4444444
+
+
+#Vectorized Matrix Operations
+x <- matrix(1:4, 2, 2); y <- matrix(rep(10,4), 2,2)
+x * y
+#out      [,1] [,2]
+#   [1,]   10   30
+#  [2,]   20   40
+x / y
+#out      [,1] [,2]
+#   [1,]  0.1  0.3
+#  [2,]  0.2  0.4
+x %*% y
+#out      [,1] [,2]
+#   [1,]   40   40
+#   [2,]   60   60

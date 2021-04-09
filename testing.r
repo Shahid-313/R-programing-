@@ -446,3 +446,64 @@ x %*% y
 #out      [,1] [,2]
 #   [1,]   40   40
 #   [2,]   60   60
+
+
+# Dates in R
+#Dates are represented by the Date class and can be coerced from a character string using the 
+#as.Date() function
+as.Date("1970-01-01")
+#out  "1970-01-01"
+as.POSIXct("1970-01-01")
+#out  "1970-01-01 PST"
+as.POSIXlt("1970-01-01")
+#out "1970-01-01 EET"
+
+#There are a few generic function that work on dates and time
+#weekdays: give the day of the week
+#months : give the month name
+#quarters : give the quarter namber("Q1","Q2","Q3",or"Q4")
+x <- Sys.time()
+x
+#out  "2021-04-08 20:35:40 PDT"
+p <- as.POSIXlt(x)
+x
+#out "2021-04-08 20:35:40 PDT"
+names(unclass(p))
+#out  [1] "sec"    "min"    "hour"   "mday"   "mon"    "year"   "wday"   "yday"   "isdst" 
+#    [10] "zone"   "gmtoff"
+p$sec
+#out 40.11223
+p$mon
+#out 3
+p$wday
+#out 4
+#You can also use the POSIXct format
+x <- Sys.time()
+x
+#out "2021-04-08 20:42:26 PDT"
+x$sec
+#Error in x$sec : $ operator is invalid for atomic vectors
+p <- as.POSIXlt(x)
+p$sec
+#out 26.44235
+#There are the strptime function in case your dates are written in a different format
+datestring <- c("January 10, 2021 10:40", "December 9, 2020 9:10")
+x <- strptime(datestring, "%B %d, %Y %H:%M")
+x
+#out  "2021-01-10 10:40:00 PST" "2020-12-09 09:10:00 PST"
+class(x)
+#out "POSIXlt" "POSIXt" 
+#Operations on Dates and Time 
+x <- as.Date("2021-01-01")
+y <- strptime("9 jan 2020 11:34:21", "%d %b %Y %H:%M:%S")
+x - y
+#output Error in x - y : non-numeric argument to binary operator
+#In addition: Warning message:
+#        Incompatible methods ("-.Date", "-.POSIXt") for "-" 
+class(x)
+#out "Date"
+class(y)
+#out "POSIXlt" "POSIXt"
+x <- as.POSIXlt(x)
+x - y
+#out Time difference of 357.1845 days

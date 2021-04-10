@@ -507,3 +507,218 @@ class(y)
 x <- as.POSIXlt(x)
 x - y
 #out Time difference of 357.1845 days
+
+
+#Looping on the command line 
+#Writing for, while koop is useful when programming but not particularly easy 
+#when working interactively on the command line for data set there are  some function
+#which implement looping to make life easier.
+
+#lapply 
+#lapply always returns a list
+x <- list(a = 1:5, b = rnorm(10))
+x
+#out $a
+#[1] 1 2 3 4 5
+
+#$b
+#[1]  0.64924784  0.05297643 -1.26104253 -0.37969272  2.87958803  0.01171871  0.03036212
+#[8] -0.92942536  0.07667166 -1.93271151
+x <- list(a = 1:4, b = rnorm(10), c = rnorm(20, 1), d = rnorm(100, 5))
+x
+lapply(x, mean)
+#out $a
+#  [1] 2.5
+
+#$b
+#  [1] 0.02127327
+
+#$c
+#  [1] 0.7161575
+
+#$d
+#  [1] 5.057068
+
+x <- 1:4
+lapply(x, runif) 
+#out [[1]]
+#[1] 0.8761544
+
+#[[2]]
+#[1] 0.4065435 0.4881316
+
+#[[3]]
+#[1] 0.1466252 0.1473455 0.4613611
+
+#[[4]]
+#[1] 0.5892430 0.9592512 0.3886967 0.8378174#
+
+x <- 1:4
+lapply(x, runif, min = 0, max = 10)
+#out [[1]]
+#[1] 8.525972
+
+#[[2]]
+#[1] 3.752197 1.979665
+
+#[[3]]
+#[1] 3.740776 8.274941 6.688818
+
+#[[4]]
+#[1] 5.328182 7.624775 2.324800 3.335000
+
+#Sapply
+#Sapply will try to simplify the result of lapply if possible.
+x <- list(a = 1:4, b = rnorm(10), c = rnorm(20, 1), d = rnorm(100, 5))
+x
+lapply(x, mean)
+sapply(x, mean)
+#out         a         b         c         d 
+#           2.5000000 0.3481401 1.0689808 5.0751410 
+
+#apply
+#apply function it is most often used to apply a function to the rows or columns of a matrix
+x <- matrix(rnorm(200), 20, 10)
+x
+apply(x, 2, mean)
+#out  [1]  0.140390105 -0.090808423 -0.201143648  0.138035414  0.007506306  0.497892767
+#    [7]  0.106923365  0.278331439 -0.041130898  0.127573879
+apply(x, 1, sum)
+#out  [1]  3.15209320 -0.02946779 -1.18681250 -1.49457067  0.03722277 -1.37212422  4.92833496
+#    [8]  0.28585292  5.07855187 -1.01685988 -0.88610174 -4.65227551 10.54725277  1.40601423
+#   [15]  4.21911002  0.97962025 -4.83733911  3.87152460  3.41745139 -3.17607141
+
+#col/row sum and mean
+#rowSums = apply(x, 1, sum)
+#rowMeans = apply(x, 1, mean)
+#colSums = apply(x, 1, sum)
+#colMeans = apply(x, 1, mean)
+
+#quantiles of the rows a matrix
+x <- matrix(rnorm(200), 20, 10)
+x
+apply(x, 1, quantile, probs = c(0.25, 0.75))
+#out
+# [,1]       [,2]       [,3]       [,4]       [,5]        [,6]       [,7]
+# 25% -0.2162524 -0.3574047 0.06673605 -0.3548040 -0.4116491 -0.06097348 -0.6030282
+# 75%  0.5516262  0.6942538 0.81116157  0.4978761  0.4047348  0.92722828  0.3503355
+# [,8]       [,9]      [,10]      [,11]      [,12]      [,13]      [,14]
+# 25% -0.9615653 -1.1059002 -0.9717300 -0.6167640 -0.9984053 -0.6863518 -0.3293723
+# 75%  0.1551460  0.6457009  0.3470148  0.4440976  0.7861758  0.8935586  0.5514993
+# [,15]       [,16]      [,17]      [,18]     [,19]      [,20]
+# 25% -2.1867141 -1.05276240 -1.0068494 -0.7563765 -0.764698 -0.6422177
+# 75%  0.5147983  0.08843963  0.3191521  0.3738494  1.082940  0.6455532
+
+#tapply
+#tapply is used to apply a function over subset of a vector 
+x <- c(rnorm(10), runif(10), rnorm(10, 1))
+x
+f <- gl(3, 10)
+f
+#out  [1] 1 1 1 1 1 1 1 1 1 1 2 2 2 2 2 2 2 2 2 2 3 3 3 3 3 3 3 3 3 3
+#   Levels: 1 2 3
+tapply(x, f, mean)
+#out          1          2          3 
+#           0.09261588 0.64210866 1.03361115 
+tapply(x, f, mean, simplify = FALSE)
+#out 
+#[1] 0.09261588
+
+#$`2`
+#[1] 0.6421087
+
+#$`3`
+#[1] 1.033611
+
+tapply(x, f, range)
+#out
+#$`1`
+#[1] -1.3535417  0.8446613
+
+#$`2`
+#[1] 0.03505913 0.96222289
+
+#$`3`
+#[1] -0.401746  2.489230
+
+#Split
+#split takes a vector or other objects and split it into groups determined by a factor or list of factor
+x <- c(rnorm(10), runif(10), rnorm(10, 1))
+f <- gl(3, 10)
+f
+split(x, f)
+#out
+#$`1`
+# [1]  0.2651576 -0.9919134  0.8349403 -0.7873522 -1.5320703  0.5215005  0.1171860
+# [8] -0.3544857 -1.5705989 -0.8300652
+
+#$`2`
+# [1] 0.70653444 0.86344461 0.80314719 0.08028235 0.18668606 0.69862782 0.20756456
+# [8] 0.48576201 0.72592162 0.32166627
+
+#$`3`
+# [1]  0.5647165  1.2539255  1.7348524  2.1021990 -0.2901003  0.2239229  1.6669612
+# [8]  1.0975945  0.7331247  1.8988613
+
+# a common idiom is split followed by an lapply
+lapply(split(x, f), mean)
+#out 
+#$`1`
+#[1] -0.4327701
+
+#$`2`
+#[1] 0.5079637
+
+#$`3`
+#[1] 1.098606
+
+library(datasets)
+head(airquality)
+#out
+#Ozone Solar.R Wind Temp Month Day
+#1    41     190  7.4   67     5   1
+#2    36     118  8.0   72     5   2
+#3    12     149 12.6   74     5   3
+#4    18     313 11.5   62     5   4
+#5    NA      NA 14.3   56     5   5
+#6    28      NA 14.9   66     5   6
+
+s <- split(airquality, airquality$Month)
+lapply(s, function(x) colMeans(x[, c("Ozone", "Solar.R","Wind")]))
+#out
+#$`5`
+#Ozone  Solar.R     Wind 
+#NA       NA 11.62258 
+
+#$`6`
+#Ozone   Solar.R      Wind 
+#NA 190.16667  10.26667 
+
+#$`7`
+#Ozone    Solar.R       Wind 
+#NA 216.483871   8.941935 
+
+#$`8`
+#Ozone  Solar.R     Wind 
+#NA       NA 8.793548 
+
+#$`9`
+#Ozone  Solar.R     Wind 
+#NA 167.4333  10.1800 
+
+sapply(s, function(x) colMeans(x[, c("Ozone","Solar.R","Wind")]))
+#out
+# 5         6          7        8        9
+# Ozone         NA        NA         NA       NA       NA
+# Solar.R       NA 190.16667 216.483871       NA 167.4333
+# Wind    11.62258  10.26667   8.941935 8.793548  10.1800
+
+sapply(s, function(x) colMeans(x[, c("Ozone","Solar.R","Wind")],
+                               na.rm = TRUE))
+#out
+#5         6          7          8         9
+#Ozone    23.61538  29.44444  59.115385  59.961538  31.44828
+#Solar.R 181.29630 190.16667 216.483871 171.857143 167.43333
+#Wind     11.62258  10.26667   8.941935   8.793548  10.18000
+
+#Recap
